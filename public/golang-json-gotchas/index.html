@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>TIL - Today I Learned - til.djharper.dev</title>
+
+      
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="https://til.djharper.dev/atom.xml">
+      
+
+      
+          <link rel="stylesheet" href="https://til.djharper.dev/site.css">
+      
+
+      
+      
+    </head>
+
+    <body class="hack dark main container">
+        
+    
+        
+                
+                    <header>
+                        <nav itemscope itemtype="http://schema.org/SiteNavigationElement">
+                        
+                            <a itemprop="url"
+                               class=""
+                               href="https:&#x2F;&#x2F;til.djharper.dev">
+                                <span itemprop="name">Home
+                                </span></a>
+                        
+                            <a itemprop="url"
+                               class=""
+                               href="https:&#x2F;&#x2F;til.djharper.dev&#x2F;tags">
+                                <span itemprop="name">Tags
+                                </span></a>
+                        
+                            <a itemprop="url"
+                               class=""
+                               href="https:&#x2F;&#x2F;djharper.dev">
+                                <span itemprop="name">djharper.dev
+                                </span></a>
+                        
+                        </nav>
+                    </header>
+                
+            
+    
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Golang JSON marshaller will replace some characters in strings with unicode runes</h1>
+        <span class="muted">
+    <svg style="margin-bottom: -3px" class="i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+        stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2021-05-05
+</span>
+        
+            in
+            
+                  <a href="https://til.djharper.dev/tags/golang/">golang</a>
+            
+        
+
+    </header>
+    <hr/>
+    <div itemprop="articleBody">
+      <p>By <a href="https://golang.org/pkg/encoding/json/">default the Golang JSON encoder</a> will replace certain characters in strings with their unicode equivalent </p>
+<blockquote>
+<p>String values encode as JSON strings coerced to valid UTF-8, replacing invalid bytes with the Unicode replacement rune. So that the JSON will be safe to embed inside HTML &lt;script&gt; tags, the string is encoded using HTMLEscape, which replaces &quot;&lt;&quot;, &quot;&gt;&quot;, &quot;&amp;&quot;, U+2028, and U+2029 are escaped to &quot;\u003c&quot;,&quot;\u003e&quot;, &quot;\u0026&quot;, &quot;\u2028&quot;, and &quot;\u2029&quot;. This replacement can be disabled when using an Encoder, by calling <code>SetEscapeHTML(false)</code></p>
+</blockquote>
+<p>You can disable the behaviour if required but it might catch you out if the JSON parser at the other end is crap and doesn't support unicode.</p>
+
+    </div>
+
+    
+        <footer>
+            <hr>
+            <p>
+                
+                    Published by Daniel
+                
+                
+                
+                    and tagged
+                    
+                        <a href="https://til.djharper.dev/tags/golang/">golang</a>
+                        
+                    
+                
+            </p>
+            
+            
+        </footer>
+    
+</article>
+
+
+    </body>
+
+</html>

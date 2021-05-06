@@ -1,0 +1,28 @@
+base_url = "https://til.djharper.dev"
+compile_sass = true
+title = "TIL - Today I Learned - til.djharper.dev"
+description = "website"
+generate_feed = true
+theme="after-dark"
+
+taxonomies = [
+    {name = "categories", feed = true},
+    {name = "tags", feed = true},
+]
+
+[extra]
+author = "Daniel"
+after_dark_menu = [
+    {url = "$BASE_URL", name = "Home"},
+    {url = "$BASE_URL/tags", name = "Tags"},
+    {url = "https://djharper.dev", name = "djharper.dev"},
+]
+
+after_dark_title = "TIL - Today I Learned"
+
+[markdown]
+highlight_code = true
+# The theme to use for code highlighting.
+# See below for list of allowed values.
+highlight_theme = "monokai"
+

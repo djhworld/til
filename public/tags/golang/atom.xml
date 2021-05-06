@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>TIL - Today I Learned - til.djharper.dev - golang</title>
+	<subtitle>website</subtitle>
+	<link href="https://til.djharper.dev/tags/golang/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://til.djharper.dev"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2021-05-05T00:00:00+00:00</updated>
+	<id>https://til.djharper.dev/tags/golang/atom.xml</id>
+	<entry xml:lang="en">
+		<title>Golang JSON marshaller will replace some characters in strings with unicode runes</title>
+		<published>2021-05-05T00:00:00+00:00</published>
+		<updated>2021-05-05T00:00:00+00:00</updated>
+		<link href="https://til.djharper.dev/golang-json-gotchas/" type="text/html"/>
+		<id>https://til.djharper.dev/golang-json-gotchas/</id>
+		<content type="html">&lt;p&gt;By &lt;a href=&quot;https:&#x2F;&#x2F;golang.org&#x2F;pkg&#x2F;encoding&#x2F;json&#x2F;&quot;&gt;default the Golang JSON encoder&lt;&#x2F;a&gt; will replace certain characters in strings with their unicode equivalent &lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;String values encode as JSON strings coerced to valid UTF-8, replacing invalid bytes with the Unicode replacement rune. So that the JSON will be safe to embed inside HTML &amp;lt;script&amp;gt; tags, the string is encoded using HTMLEscape, which replaces &amp;quot;&amp;lt;&amp;quot;, &amp;quot;&amp;gt;&amp;quot;, &amp;quot;&amp;amp;&amp;quot;, U+2028, and U+2029 are escaped to &amp;quot;\u003c&amp;quot;,&amp;quot;\u003e&amp;quot;, &amp;quot;\u0026&amp;quot;, &amp;quot;\u2028&amp;quot;, and &amp;quot;\u2029&amp;quot;. This replacement can be disabled when using an Encoder, by calling &lt;code&gt;SetEscapeHTML(false)&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;You can disable the behaviour if required but it might catch you out if the JSON parser at the other end is crap and doesn&#x27;t support unicode.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>You can use testing.Skip() instead of build tags for integration tests</title>
+		<published>2021-05-05T00:00:00+00:00</published>
+		<updated>2021-05-05T00:00:00+00:00</updated>
+		<link href="https://til.djharper.dev/integration-testing-using-skip/" type="text/html"/>
+		<id>https://til.djharper.dev/integration-testing-using-skip/</id>
+		<content type="html">&lt;p&gt;A pattern I&#x27;ve seen often in Go is to use build tags for integration tests, so you could exclude them when running &lt;code&gt;go test&lt;&#x2F;code&gt; &lt;&#x2F;p&gt;
+&lt;p&gt;This works OK but has some pitfalls, especially around IDEs and other tooling which often does not lint or compile build tags unless explicity set, so compiler errors will not surface.&lt;&#x2F;p&gt;
+&lt;p&gt;After reading &lt;a href=&quot;https:&#x2F;&#x2F;peter.bourgon.org&#x2F;blog&#x2F;2021&#x2F;04&#x2F;02&#x2F;dont-use-build-tags-for-integration-tests.html&quot;&gt;dont-use-build-tags-for-integration-tests&lt;&#x2F;a&gt; I&#x27;ve started to try using the &lt;code&gt;t.Skip()&lt;&#x2F;code&gt; instead with an environment variable.&lt;&#x2F;p&gt;
+&lt;p&gt;For example: &lt;&#x2F;p&gt;
+&lt;pre style=&quot;background-color:#272822;&quot;&gt;
+&lt;code class=&quot;language-go&quot; data-lang=&quot;go&quot;&gt;&lt;span style=&quot;font-style:italic;color:#66d9ef;&quot;&gt;func &lt;&#x2F;span&gt;&lt;span style=&quot;color:#a6e22e;&quot;&gt;TestIntegration&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f8f8f2;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#fd971f;&quot;&gt;t &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f92672;&quot;&gt;*&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f8f8f2;&quot;&gt;testing.&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#66d9ef;&quot;&gt;T&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f8f8f2;&quot;&gt;) {
+	integrationFlag &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f92672;&quot;&gt;:= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f8f8f2;&quot;&gt;os.Getenv(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6db74;&quot;&gt;&amp;quot;INTEGRATION&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f8f8f2;&quot;&gt;)
+	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f92672;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f8f8f2;&quot;&gt;integrationFlag &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f92672;&quot;&gt;== &lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6db74;&quot;&gt;&amp;quot;&amp;quot; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f8f8f2;&quot;&gt;{
+		t.Skip(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#e6db74;&quot;&gt;&amp;quot;set INTEGRATION to run this test&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f8f8f2;&quot;&gt;)
+	}
+
+	&lt;&#x2F;span&gt;&lt;span style=&quot;color:#75715e;&quot;&gt;&#x2F;&#x2F; ...
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f8f8f2;&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
+	</entry>
+</feed>
