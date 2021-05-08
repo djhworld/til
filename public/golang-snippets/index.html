@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>TIL - Today I Learned - til.djharper.dev</title>
+
+      
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="https://til.djharper.dev/atom.xml">
+      
+
+      
+      <!-- <link rel="stylesheet" href="https://til.djharper.dev/site.css">-->
+      <link rel="stylesheet" href="/site.css">
+      
+
+      
+      
+    </head>
+
+    <body class="hack dark main container">
+        
+    
+        
+                
+                    <header>
+                        <nav itemscope itemtype="http://schema.org/SiteNavigationElement">
+                        
+                            <a itemprop="url"
+                               class=""
+                               href="https:&#x2F;&#x2F;til.djharper.dev">
+                                <span itemprop="name">Home
+                                </span></a>
+                        
+                            <a itemprop="url"
+                               class=""
+                               href="https:&#x2F;&#x2F;til.djharper.dev&#x2F;tags">
+                                <span itemprop="name">Tags
+                                </span></a>
+                        
+                            <a itemprop="url"
+                               class=""
+                               href="https:&#x2F;&#x2F;djharper.dev">
+                                <span itemprop="name">djharper.dev
+                                </span></a>
+                        
+                        </nav>
+                    </header>
+                
+            
+    
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Golang Snippets</h1>
+        <span class="muted">
+    <svg style="margin-bottom: -3px" class="i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+        stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2021-05-08
+</span>
+        
+            in
+            
+                  <a href="https://til.djharper.dev/tags/golang/">golang</a>
+            
+        
+
+    </header>
+    <hr/>
+    <div itemprop="articleBody">
+      <p>Just some snippets I regularly refer to </p>
+<p>Reading from Stdin</p>
+<pre style="background-color:#272822;">
+<code class="language-go" data-lang="go"><span style="color:#f92672;">package </span><span style="color:#f8f8f2;">main
+
+ </span><span style="color:#f92672;">import </span><span style="color:#f8f8f2;">(
+   </span><span style="color:#e6db74;">&quot;bufio&quot;
+   &quot;fmt&quot;
+   &quot;os&quot;
+ </span><span style="color:#f8f8f2;">)
+
+ </span><span style="font-style:italic;color:#66d9ef;">func </span><span style="color:#a6e22e;">main</span><span style="color:#f8f8f2;">() {
+   scanner </span><span style="color:#f92672;">:= </span><span style="color:#f8f8f2;">bufio.NewScanner(os.Stdin)
+   </span><span style="color:#f92672;">for </span><span style="color:#f8f8f2;">scanner.Scan() {
+     fmt.Println(scanner.Text()) </span><span style="color:#75715e;">// Println will add back the final &#39;\n&#39;
+   </span><span style="color:#f8f8f2;">}
+   </span><span style="color:#f92672;">if </span><span style="color:#f8f8f2;">err </span><span style="color:#f92672;">:= </span><span style="color:#f8f8f2;">scanner.Err(); err </span><span style="color:#f92672;">!= </span><span style="color:#ae81ff;">nil </span><span style="color:#f8f8f2;">{
+     fmt.Fprintln(os.Stderr, </span><span style="color:#e6db74;">&quot;reading standard input:&quot;</span><span style="color:#f8f8f2;">, err)
+   }
+ }
+</span></code></pre>
+<p>Simple web server</p>
+<pre style="background-color:#272822;">
+<code class="language-go" data-lang="go"><span style="color:#f92672;">package </span><span style="color:#f8f8f2;">main
+
+</span><span style="color:#f92672;">import </span><span style="color:#f8f8f2;">(
+    </span><span style="color:#e6db74;">&quot;fmt&quot;
+    &quot;net/http&quot;
+</span><span style="color:#f8f8f2;">)
+
+</span><span style="font-style:italic;color:#66d9ef;">func </span><span style="color:#a6e22e;">handler</span><span style="color:#f8f8f2;">(</span><span style="font-style:italic;color:#fd971f;">w </span><span style="color:#f8f8f2;">http.</span><span style="font-style:italic;color:#66d9ef;">ResponseWriter</span><span style="color:#f8f8f2;">, </span><span style="font-style:italic;color:#fd971f;">r </span><span style="color:#f92672;">*</span><span style="color:#f8f8f2;">http.</span><span style="font-style:italic;color:#66d9ef;">Request</span><span style="color:#f8f8f2;">) {
+    fmt.Fprintf(w, </span><span style="color:#e6db74;">&quot;Hi there, I love </span><span style="color:#ae81ff;">%s</span><span style="color:#e6db74;">!&quot;</span><span style="color:#f8f8f2;">, r.URL.Path[</span><span style="color:#ae81ff;">1</span><span style="color:#f8f8f2;">:])
+ }
+
+</span><span style="font-style:italic;color:#66d9ef;">func </span><span style="color:#a6e22e;">main</span><span style="color:#f8f8f2;">() {
+    http.HandleFunc(</span><span style="color:#e6db74;">&quot;/&quot;</span><span style="color:#f8f8f2;">, handler)
+    http.ListenAndServe(</span><span style="color:#e6db74;">&quot;:8080&quot;</span><span style="color:#f8f8f2;">, </span><span style="color:#ae81ff;">nil</span><span style="color:#f8f8f2;">)
+}
+</span></code></pre>
+<p>Deserialising JSON</p>
+<pre style="background-color:#272822;">
+<code class="language-go" data-lang="go"><span style="color:#f92672;">package </span><span style="color:#f8f8f2;">main
+
+</span><span style="color:#f92672;">import </span><span style="color:#f8f8f2;">(
+  </span><span style="color:#e6db74;">&quot;encoding/json&quot;
+  &quot;fmt&quot;
+</span><span style="color:#f8f8f2;">)
+
+</span><span style="font-style:italic;color:#66d9ef;">func </span><span style="color:#a6e22e;">main</span><span style="color:#f8f8f2;">() {
+  </span><span style="font-style:italic;color:#66d9ef;">var </span><span style="color:#f8f8f2;">jsonBlob </span><span style="color:#f92672;">= </span><span style="color:#f8f8f2;">[]</span><span style="font-style:italic;color:#66d9ef;">byte</span><span style="color:#f8f8f2;">(</span><span style="color:#e6db74;">`[
+    {&quot;Name&quot;: &quot;Platypus&quot;, &quot;Order&quot;: &quot;Monotremata&quot;},
+    {&quot;Name&quot;: &quot;Quoll&quot;,    &quot;Order&quot;: &quot;Dasyuromorphia&quot;}
+  ]`</span><span style="color:#f8f8f2;">)
+  </span><span style="font-style:italic;color:#66d9ef;">type </span><span style="color:#f8f8f2;">Animal </span><span style="font-style:italic;color:#66d9ef;">struct </span><span style="color:#f8f8f2;">{
+    Name  </span><span style="font-style:italic;color:#66d9ef;">string
+    </span><span style="color:#f8f8f2;">Order </span><span style="font-style:italic;color:#66d9ef;">string
+  </span><span style="color:#f8f8f2;">}
+  </span><span style="font-style:italic;color:#66d9ef;">var </span><span style="color:#f8f8f2;">animals []</span><span style="font-style:italic;color:#66d9ef;">Animal
+  </span><span style="color:#f8f8f2;">err </span><span style="color:#f92672;">:= </span><span style="color:#f8f8f2;">json.Unmarshal(jsonBlob, </span><span style="color:#f92672;">&amp;</span><span style="color:#f8f8f2;">animals)
+  </span><span style="color:#f92672;">if </span><span style="color:#f8f8f2;">err </span><span style="color:#f92672;">!= </span><span style="color:#ae81ff;">nil </span><span style="color:#f8f8f2;">{
+    fmt.Println(</span><span style="color:#e6db74;">&quot;error:&quot;</span><span style="color:#f8f8f2;">, err)
+  }
+  fmt.Printf(</span><span style="color:#e6db74;">&quot;</span><span style="color:#ae81ff;">%+v</span><span style="color:#e6db74;">&quot;</span><span style="color:#f8f8f2;">, animals)
+}
+</span></code></pre>
+<p>Partition a list by batch size</p>
+<pre style="background-color:#272822;">
+<code class="language-go" data-lang="go"><span style="font-style:italic;color:#66d9ef;">func </span><span style="color:#a6e22e;">min</span><span style="color:#f8f8f2;">(</span><span style="font-style:italic;color:#fd971f;">a</span><span style="color:#f8f8f2;">, </span><span style="font-style:italic;color:#fd971f;">b </span><span style="font-style:italic;color:#66d9ef;">int</span><span style="color:#f8f8f2;">) </span><span style="font-style:italic;color:#66d9ef;">int </span><span style="color:#f8f8f2;">{
+    </span><span style="color:#f92672;">if </span><span style="color:#f8f8f2;">a </span><span style="color:#f92672;">&lt;= </span><span style="color:#f8f8f2;">b {
+        </span><span style="color:#f92672;">return </span><span style="color:#f8f8f2;">a
+    }
+    </span><span style="color:#f92672;">return </span><span style="color:#f8f8f2;">b
+}
+
+</span><span style="color:#f92672;">for </span><span style="color:#f8f8f2;">i </span><span style="color:#f92672;">:= </span><span style="color:#ae81ff;">0</span><span style="color:#f8f8f2;">; i </span><span style="color:#f92672;">&lt; </span><span style="color:#66d9ef;">len</span><span style="color:#f8f8f2;">(records); i </span><span style="color:#f92672;">+= </span><span style="color:#ae81ff;">500 </span><span style="color:#f8f8f2;">{
+        batch </span><span style="color:#f92672;">:= </span><span style="color:#f8f8f2;">records[i:min(i</span><span style="color:#f92672;">+</span><span style="color:#ae81ff;">500</span><span style="color:#f8f8f2;">, </span><span style="color:#66d9ef;">len</span><span style="color:#f8f8f2;">(records))]
+        fmt.Println(</span><span style="color:#e6db74;">&quot;Submitting batch of&quot;</span><span style="color:#f8f8f2;">, </span><span style="color:#66d9ef;">len</span><span style="color:#f8f8f2;">(batch), </span><span style="color:#e6db74;">&quot;records&quot;</span><span style="color:#f8f8f2;">)
+    }
+</span></code></pre>
+<p>Use TLS cert in http request</p>
+<pre style="background-color:#272822;">
+<code class="language-go" data-lang="go"><span style="color:#f8f8f2;">cert, err </span><span style="color:#f92672;">:= </span><span style="color:#f8f8f2;">tls.LoadX509KeyPair(</span><span style="color:#e6db74;">&quot;&lt;CERT&gt;&quot;</span><span style="color:#f8f8f2;">, </span><span style="color:#e6db74;">&quot;&lt;KEY&gt;&quot;</span><span style="color:#f8f8f2;">)
+       </span><span style="color:#f92672;">if </span><span style="color:#f8f8f2;">err </span><span style="color:#f92672;">!= </span><span style="color:#ae81ff;">nil </span><span style="color:#f8f8f2;">{
+               fmt.Println(</span><span style="color:#e6db74;">&quot;Failed&quot;</span><span style="color:#f8f8f2;">, err)
+               </span><span style="color:#f92672;">return
+       </span><span style="color:#f8f8f2;">}
+       tr </span><span style="color:#f92672;">:= &amp;</span><span style="color:#f8f8f2;">http.Transport{
+               TLSClientConfig: </span><span style="color:#f92672;">&amp;</span><span style="color:#f8f8f2;">tls.Config{
+                       Certificates: []tls.Certificate{cert},
+               },
+       }
+       client </span><span style="color:#f92672;">:= &amp;</span><span style="color:#f8f8f2;">http.Client{Transport: tr}
+       client.Get(</span><span style="color:#e6db74;">&quot;endpoint&quot;</span><span style="color:#f8f8f2;">)
+</span></code></pre>
+<p>Sorting a slice of things using an anonymous function</p>
+<pre style="background-color:#272822;">
+<code class="language-go" data-lang="go"><span style="font-style:italic;color:#66d9ef;">var </span><span style="color:#f8f8f2;">myslice [][]byte
+...
+sort.</span><span style="font-style:italic;color:#66d9ef;">Slice</span><span style="color:#f8f8f2;">(myslice, </span><span style="font-style:italic;color:#66d9ef;">func</span><span style="color:#f8f8f2;">(</span><span style="font-style:italic;color:#fd971f;">i</span><span style="color:#f8f8f2;">, </span><span style="font-style:italic;color:#fd971f;">j </span><span style="font-style:italic;color:#66d9ef;">int</span><span style="color:#f8f8f2;">) </span><span style="font-style:italic;color:#66d9ef;">bool </span><span style="color:#f8f8f2;">{
+    </span><span style="color:#f92672;">return </span><span style="color:#f8f8f2;">bytes.Compare(myslice[i], myslice[j]) </span><span style="color:#f92672;">&lt; </span><span style="color:#ae81ff;">0
+</span><span style="color:#f8f8f2;">})
+</span></code></pre>
+    </div>
+
+    
+        <footer>
+            <hr>
+            <p>
+                
+                    Published by Daniel
+                
+                
+                
+                    and tagged
+                    
+                        <a href="https://til.djharper.dev/tags/golang/">golang</a>
+                        
+                    
+                
+            </p>
+            
+            
+        </footer>
+    
+</article>
+
+
+    </body>
+
+</html>
