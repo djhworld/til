@@ -19,10 +19,20 @@
         <loc>https://til.djharper.dev/page/1/</loc>
     </url>
     <url>
+        <loc>https://til.djharper.dev/show-hidden-files-in-finder/</loc>
+        <lastmod>2021-05-08</lastmod>
+    </url>
+    <url>
         <loc>https://til.djharper.dev/tags/</loc>
     </url>
     <url>
         <loc>https://til.djharper.dev/tags/golang/</loc>
+    </url>
+    <url>
+        <loc>https://til.djharper.dev/tags/mac/</loc>
+    </url>
+    <url>
+        <loc>https://til.djharper.dev/tags/osx/</loc>
     </url>
     <url>
         <loc>https://til.djharper.dev/tags/testing/</loc>

@@ -117,6 +117,16 @@ sort.&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#66d9ef;&quo
 &lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
 	</entry>
 	<entry xml:lang="en">
+		<title>Show hidden files in OSX Finder</title>
+		<published>2021-05-08T00:00:00+00:00</published>
+		<updated>2021-05-08T00:00:00+00:00</updated>
+		<link href="https://til.djharper.dev/show-hidden-files-in-finder/" type="text/html"/>
+		<id>https://til.djharper.dev/show-hidden-files-in-finder/</id>
+		<content type="html">&lt;p&gt;&lt;code&gt;brew&lt;&#x2F;code&gt; on an M1 Mac will install files into &lt;code&gt;&#x2F;opt&lt;&#x2F;code&gt;, which is hidden by default in OSX Finder. &lt;&#x2F;p&gt;
+&lt;p&gt;To show these files, you can use the keyboard shortcut &lt;code&gt;Command+Shift+.&lt;&#x2F;code&gt; (period)&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
 		<title>Golang JSON marshaller will replace some characters in strings with unicode runes</title>
 		<published>2021-05-05T00:00:00+00:00</published>
 		<updated>2021-05-05T00:00:00+00:00</updated>
