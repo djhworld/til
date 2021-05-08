@@ -123,5 +123,3 @@ sort.Slice(myslice, func(i, j int) bool {
     return bytes.Compare(myslice[i], myslice[j]) < 0
 })
 ```
-
-
