@@ -28,10 +28,7 @@
 iframe {
   border: 0;
 }
-main, footer {
-  animation: intro 0.3s both;
-  animation-delay: 0.15s;
-}
+
 footer time[datetime$="M"]:before {
   content: "\2013\0020";
 }
