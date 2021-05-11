@@ -4,6 +4,7 @@ title = "TIL - Today I Learned - til.djharper.dev"
 description = "website"
 generate_feed = true
 theme="after-dark"
+build_search_index=false
 
 taxonomies = [
     {name = "categories", feed = true},
